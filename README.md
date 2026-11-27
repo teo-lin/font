@@ -6,7 +6,7 @@ Shows the VSCode explorer pane in a font of your choice, for example a monospace
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `explorerFont.family` | `Monaco, Menlo, monospace` | Font for the explorer pane |
+| `explorerFont.family` | `Lekton, Monaco, Menlo, monospace` | Font for the explorer pane. [Lekton](https://fonts.google.com/specimen/Lekton) is a free download; if it is not installed, the next font in the list is used |
 | `explorerFont.size` | `0` | Size in pixels. `0` keeps the VSCode size |
 
 ## Commands

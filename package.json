@@ -2,7 +2,7 @@
   "name": "explorer-pane-font",
   "displayName": "Explorer Font",
   "description": "Shows the explorer pane in a fixed-width font.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "teolin",
   "license": "MIT",
   "icon": "icon.png",
@@ -23,7 +23,7 @@
         "explorerFont.family": {
           "type": "string",
           "scope": "application",
-          "default": "Monaco, Menlo, monospace",
+          "default": "Lekton, Monaco, Menlo, monospace",
           "description": "Font for the explorer pane."
         },
         "explorerFont.size": {

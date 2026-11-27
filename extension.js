@@ -15,7 +15,7 @@ function findWorkbenchFile() {
 }
 
 const UNSAFE_FONT = /[<>{};\\]/;
-const DEFAULT_FAMILY = 'Monaco, Menlo, monospace';
+const DEFAULT_FAMILY = 'Lekton, Monaco, Menlo, monospace';
 
 function isSafeFamily(family) {
   return typeof family === 'string' && family.trim() !== '' && !UNSAFE_FONT.test(family);
