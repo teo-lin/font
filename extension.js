@@ -14,11 +14,24 @@ function findWorkbenchFile() {
   return candidates.find((candidate) => fs.existsSync(candidate));
 }
 
+const UNSAFE_FONT = /[<>{};\\]/;
+const DEFAULT_FAMILY = 'Monaco, Menlo, monospace';
+
+function isSafeFamily(family) {
+  return typeof family === 'string' && family.trim() !== '' && !UNSAFE_FONT.test(family);
+}
+
 function buildStyleBlock() {
   const configuration = vscode.workspace.getConfiguration('explorerFont');
-  const family = configuration.get('family');
-  const size = configuration.get('size');
-  const sizeRule = size > 0 ? ` font-size: ${size}px !important;` : '';
+  let family = configuration.get('family');
+  if (!isSafeFamily(family)) {
+    vscode.window.showWarningMessage(
+      'Explorer Font: the font name has characters that are not allowed (< > { } ; \\). The default font is used.',
+    );
+    family = DEFAULT_FAMILY;
+  }
+  const size = Math.floor(Number(configuration.get('size')));
+  const sizeRule = size > 0 && size < 100 ? ` font-size: ${size}px !important;` : '';
   const css = `.explorer-folders-view .monaco-list-row { font-family: ${family} !important;${sizeRule} }`;
   return `\n\t\t${START_MARKER}<style>${css}</style>${END_MARKER}`;
 }
@@ -117,6 +130,7 @@ async function pickFont() {
     const name = await vscode.window.showInputBox({
       prompt: 'Font name, exactly as installed on this computer',
       placeHolder: 'For example: Lekton',
+      validateInput: (value) => (UNSAFE_FONT.test(value) ? 'These characters are not allowed: < > { } ; \\' : undefined),
     });
     if (!name || !name.trim()) return;
     css = name.includes(' ') ? `'${name.trim()}'` : name.trim();

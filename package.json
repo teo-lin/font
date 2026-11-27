@@ -21,11 +21,13 @@
       "properties": {
         "explorerFont.family": {
           "type": "string",
+          "scope": "application",
           "default": "Monaco, Menlo, monospace",
           "description": "Font for the explorer pane."
         },
         "explorerFont.size": {
           "type": "number",
+          "scope": "application",
           "default": 0,
           "description": "Font size in pixels for the explorer pane. 0 keeps the VSCode size."
         }
