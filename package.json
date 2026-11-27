@@ -4,7 +4,7 @@
   "description": "Shows the explorer pane in a fixed-width font.",
   "version": "0.0.1",
   "publisher": "teolin",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "repository": { "type": "git", "url": "https://github.com/teo-lin/font.git" },
   "engines": { "vscode": "^1.90.0" },
