@@ -12,6 +12,7 @@
   "activationEvents": ["onStartupFinished"],
   "contributes": {
     "commands": [
+      { "command": "explorerFont.pick", "title": "Pick Font", "category": "Explorer Font" },
       { "command": "explorerFont.apply", "title": "Apply", "category": "Explorer Font" },
       { "command": "explorerFont.remove", "title": "Remove", "category": "Explorer Font" }
     ],

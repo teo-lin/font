@@ -11,6 +11,7 @@ Shows the VSCode explorer pane in a font of your choice, for example a monospace
 
 ## Commands
 
+- **Explorer Font: Pick Font** — choose from a list of monospace fonts, or type the name of any installed font.
 - **Explorer Font: Apply** — apply the font now.
 - **Explorer Font: Remove** — go back to the VSCode font.
 

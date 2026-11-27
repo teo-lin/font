@@ -88,8 +88,45 @@ async function remove() {
   }
 }
 
+const SUGGESTED_FONTS = [
+  { label: 'Lekton', css: 'Lekton', description: 'narrow, free download' },
+  { label: 'Iosevka', css: 'Iosevka', description: 'narrow, free download' },
+  { label: 'Ubuntu Mono', css: "'Ubuntu Mono'", description: 'narrow, free download' },
+  { label: 'JetBrains Mono', css: "'JetBrains Mono'", description: 'free download' },
+  { label: 'Fira Code', css: "'Fira Code'", description: 'free download' },
+  { label: 'Source Code Pro', css: "'Source Code Pro'", description: 'free download' },
+  { label: 'SF Mono', css: 'ui-monospace', description: 'built in on macOS' },
+  { label: 'Monaco', css: 'Monaco', description: 'built in on macOS' },
+  { label: 'Menlo', css: 'Menlo', description: 'built in on macOS' },
+  { label: 'Consolas', css: 'Consolas', description: 'built in on Windows' },
+  { label: 'Cascadia Code', css: "'Cascadia Code'", description: 'built in on Windows' },
+  { label: 'Courier New', css: "'Courier New'", description: 'built in on macOS and Windows' },
+];
+
+async function pickFont() {
+  const configuration = vscode.workspace.getConfiguration('explorerFont');
+  const current = configuration.get('family');
+  const typeOwn = { label: '$(edit) Type a font name…', alwaysShow: true };
+  const choice = await vscode.window.showQuickPick(
+    [typeOwn, { label: '', kind: vscode.QuickPickItemKind.Separator }, ...SUGGESTED_FONTS],
+    { placeHolder: `Current font: ${current}`, matchOnDescription: true },
+  );
+  if (!choice) return;
+  let css = choice.css;
+  if (choice === typeOwn) {
+    const name = await vscode.window.showInputBox({
+      prompt: 'Font name, exactly as installed on this computer',
+      placeHolder: 'For example: Lekton',
+    });
+    if (!name || !name.trim()) return;
+    css = name.includes(' ') ? `'${name.trim()}'` : name.trim();
+  }
+  await configuration.update('family', `${css}, monospace`, vscode.ConfigurationTarget.Global);
+}
+
 function activate(context) {
   context.subscriptions.push(
+    vscode.commands.registerCommand('explorerFont.pick', pickFont),
     vscode.commands.registerCommand('explorerFont.apply', apply),
     vscode.commands.registerCommand('explorerFont.remove', remove),
     vscode.workspace.onDidChangeConfiguration((event) => {
