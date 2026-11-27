@@ -53,7 +53,8 @@ function updateChecksum(workbenchFile, html) {
   const product = fs.readFileSync(productFile, 'utf8');
   const keyPattern = new RegExp(`("${checksumKey.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"\\s*:\\s*")[^"]*(")`);
   if (!keyPattern.test(product)) return;
-  fs.writeFileSync(productFile, product.replace(keyPattern, `$1${checksum}$2`), 'utf8');
+  const updated = product.replace(keyPattern, `$1${checksum}$2`);
+  if (updated !== product) fs.writeFileSync(productFile, updated, 'utf8');
 }
 
 function writeWorkbench(workbenchFile, html) {
@@ -67,11 +68,17 @@ function writeWorkbench(workbenchFile, html) {
   }
 }
 
-async function offerReload(message) {
-  const choice = await vscode.window.showInformationMessage(message, 'Reload Window');
-  if (choice === 'Reload Window') {
-    vscode.commands.executeCommand('workbench.action.reloadWindow');
-  }
+// VSCode reads the file checksums once, when the app starts. Reloading a window does not read them again,
+// so until the whole app is quit and reopened it can wrongly report "installation appears to be corrupt".
+async function offerRestart(message) {
+  const choice = await vscode.window.showInformationMessage(
+    `${message} Quit and reopen VSCode completely. Until you do, VSCode may say its installation is corrupt. ` +
+      'It is not: Explorer Font changed one VSCode file and VSCode still expects the old version of it.',
+    'Quit VSCode',
+    'Reload Window',
+  );
+  if (choice === 'Quit VSCode') vscode.commands.executeCommand('workbench.action.quit');
+  else if (choice === 'Reload Window') vscode.commands.executeCommand('workbench.action.reloadWindow');
 }
 
 async function apply() {
@@ -84,7 +91,7 @@ async function apply() {
     return;
   }
   if (writeWorkbench(workbench.workbenchFile, patchedHtml)) {
-    await offerReload('Explorer Font: applied. Reload to see it.');
+    await offerRestart('Explorer Font: applied.');
   }
 }
 
@@ -97,7 +104,7 @@ async function remove() {
     return;
   }
   if (writeWorkbench(workbench.workbenchFile, cleanHtml)) {
-    await offerReload('Explorer Font: removed. Reload to see it.');
+    await offerRestart('Explorer Font: removed.');
   }
 }
 

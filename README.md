@@ -17,4 +17,8 @@ Shows the VSCode explorer pane in a font of your choice, for example a monospace
 
 ## Note
 
-VSCode has no setting for this. The extension adds one style rule to a VSCode file and updates its checksum, so VSCode does not report a corrupt installation. A VSCode update removes the rule; the extension puts it back at the next start.
+VSCode has no setting for this. The extension adds one style rule to a VSCode file (`workbench.html`) and updates that file's checksum in `product.json`. A VSCode update removes the rule; the extension puts it back at the next start.
+
+**"Your installation appears to be corrupt":** VSCode reads its checksums once, when the app starts, so right after the extension changes the file it can show this warning. The installation is fine. **Quit VSCode completely and reopen it** (on a Mac: `Cmd+Q`; closing the window or running *Reload Window* is not enough) and the warning is gone. You may see it once more after each VSCode update, because the extension re-applies the rule then. If it stays after a full restart, run **Explorer Font: Remove** and open an issue.
+
+The extension needs write access to the VSCode install folder. If VSCode is installed for all users (for example in `Program Files`), run VSCode as administrator once.

@@ -1,8 +1,8 @@
 {
-  "name": "explorer-font",
+  "name": "explorer-pane-font",
   "displayName": "Explorer Font",
   "description": "Shows the explorer pane in a fixed-width font.",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "publisher": "teolin",
   "license": "MIT",
   "icon": "icon.png",
