@@ -1,0 +1,23 @@
+README.md
+  s_eece807b704c3a::t_6d7c4b3901180a 1-19
+LICENSE
+  s_eece807b704c3a::t_f4119b92175add 1-21
+package.json
+  s_eece807b704c3a::t_194cf7eac01e53 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "56fb157057aeeb75d2fc922271de6f32929aa2ab",
+  "prompts": {},
+  "sessions": {
+    "s_eece807b704c3a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "511ba333-3172-4079-88ef-2145fadb2ad5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "teolin <teolin@gmail.com>"
+    }
+  }
+}
