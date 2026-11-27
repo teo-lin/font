@@ -1,0 +1,18 @@
+.gitignore
+  h_08ff9149c6bb35 1-2
+extension.js
+  h_08ff9149c6bb35 1-105
+package.json
+  h_08ff9149c6bb35 1-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "880f69e856fa936723f10360ba63042459f9886a",
+  "prompts": {},
+  "humans": {
+    "h_08ff9149c6bb35": {
+      "author": "teolin <teolin@gmail.com>"
+    }
+  }
+}
